@@ -29,7 +29,7 @@
         "formatWithErrors": false,
         "ignore": [],
         "indentStyle": "space",
-        "indentWidth": 2,
+        "indentWidth": 4,
         "lineWidth": 100
     },
     "json": {
@@ -52,7 +52,7 @@
             "semicolons": "asNeeded",
             "arrowParentheses": "always",
             "indentStyle": "space",
-            "indentWidth": 2,
+            "indentWidth": 4,
             "lineWidth": 100,
             "quoteProperties": "asNeeded"
         }
