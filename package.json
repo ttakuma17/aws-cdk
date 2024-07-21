@@ -1,31 +1,33 @@
 {
-    "name": "awsmaster-with-cdk",
-    "version": "0.1.0",
-    "bin": {
-        "awsmaster-with-cdk": "bin/awsmaster-with-cdk.js"
-    },
-    "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w",
-        "test": "jest",
-        "cdk": "cdk",
-        "lint": "npx @biomejs/biome lint --write --unsafe ./",
-        "format": "npx @biomejs/biome format ./ --write",
-        "ci": "npx @biomejs/biome ci ."
-    },
-    "devDependencies": {
-        "@biomejs/biome": "1.8.3",
-        "@types/jest": "^29.5.12",
-        "@types/node": "20.14.9",
-        "aws-cdk": "2.149.0",
-        "jest": "^29.7.0",
-        "ts-jest": "^29.1.5",
-        "ts-node": "^10.9.2",
-        "typescript": "~5.5.3"
-    },
-    "dependencies": {
-        "aws-cdk-lib": "2.149.0",
-        "constructs": "^10.0.0",
-        "source-map-support": "^0.5.21"
-    }
+  "name": "awsmaster-with-cdk",
+  "version": "0.1.0",
+  "bin": {
+    "awsmaster-with-cdk": "bin/awsmaster-with-cdk.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk",
+    "auto-synth": "nodemon -e ts --ignore cdk.out --exec 'cdk synth'",
+    "lint": "npx @biomejs/biome lint --write --unsafe ./",
+    "format": "npx @biomejs/biome format ./ --write",
+    "ci": "npx @biomejs/biome ci ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@types/jest": "^29.5.12",
+    "@types/node": "20.14.9",
+    "aws-cdk": "2.149.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.5.3"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.149.0",
+    "constructs": "^10.0.0",
+    "nodemon": "^3.1.4",
+    "source-map-support": "^0.5.21"
+  }
 }
