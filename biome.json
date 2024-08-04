@@ -13,7 +13,8 @@
             "style": {
                 "useNamingConvention": "off",
                 "noDefaultExport": "off",
-                "useFilenamingConvention": "off"
+                "useFilenamingConvention": "off",
+                "noNamespaceImport": "off"
             },
             "nursery": {
                 "noUndeclaredDependencies": "off"
