@@ -1,16 +1,17 @@
-import * as cdk from 'aws-cdk-lib'
-import * as iam from 'aws-cdk-lib/aws-iam'
-import type { Construct } from 'constructs'
+import * as cdk from 'aws-cdk-lib';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import type { Construct } from 'constructs';
+require('dotenv').config();
 
 export class AwsmasterWithCdkStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-        super(scope, id, props)
+        super(scope, id, props);
 
         // IAMグループの作成
         const iamGroup = new iam.Group(this, 'Administrators', {
             groupName: 'Administrators',
             managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess')],
-        })
+        });
 
         const iamUser = new iam.User(this, 'MyAdminUser', {
             userName: 'MyAdminUser',
@@ -18,8 +19,8 @@ export class AwsmasterWithCdkStack extends cdk.Stack {
                 process.env.ADMIN_PASSWORD ?? 'default_password',
             ),
             passwordResetRequired: true,
-        })
+        });
 
-        iamGroup.addUser(iamUser)
+        iamGroup.addUser(iamUser);
     }
 }
