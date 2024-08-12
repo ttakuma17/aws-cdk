@@ -7,7 +7,6 @@ export class AwsmasterWithCdkStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        // IAMグループの作成
         const iamGroup = new iam.Group(this, 'Administrators', {
             groupName: 'Administrators',
             managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess')],
@@ -22,5 +21,12 @@ export class AwsmasterWithCdkStack extends cdk.Stack {
         });
 
         iamGroup.addUser(iamUser);
+
+        const iamRole = new iam.Role(this, 'MyRole', {
+            roleName: 'S3AccessRole',
+            assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
+        });
+
+        iamRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonS3FullAccess'));
     }
 }
