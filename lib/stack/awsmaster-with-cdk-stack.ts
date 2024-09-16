@@ -1,32 +1,25 @@
 import * as cdk from 'aws-cdk-lib';
-import * as iam from 'aws-cdk-lib/aws-iam';
 import type { Construct } from 'constructs';
+import { AdminGroup } from '../constructs/AdminGroup';
+import { AdminUser } from '../constructs/AdminUser';
 require('dotenv').config();
 
 export class AwsmasterWithCdkStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        const iamGroup = new iam.Group(this, 'Administrators', {
-            groupName: 'Administrators',
-            managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess')],
-        });
+        const adminGroup = new AdminGroup(this, 'AdminGroup');
 
-        const iamUser = new iam.User(this, 'MyAdminUser', {
-            userName: 'MyAdminUser',
-            password: cdk.SecretValue.unsafePlainText(
-                process.env.ADMIN_PASSWORD ?? 'default_password',
-            ),
-            passwordResetRequired: true,
-        });
+        // 3つのAdminUserを作成
+        const adminUsers = [
+            new AdminUser(this, 'AdminUser1', { userName: 'admin1' }),
+            new AdminUser(this, 'AdminUser2', { userName: 'admin2' }),
+            new AdminUser(this, 'AdminUser3', { userName: 'admin3' }),
+        ];
 
-        iamGroup.addUser(iamUser);
-
-        const iamRole = new iam.Role(this, 'MyRole', {
-            roleName: 'S3AccessRole',
-            assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
-        });
-
-        iamRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonS3FullAccess'));
+        // 各ユーザーをグループに追加
+        for (const user of adminUsers) {
+            adminGroup.group.addUser(user.user);
+        }
     }
 }
