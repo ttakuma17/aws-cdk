@@ -12,6 +12,7 @@ export interface DnsProps {
 export class Dns extends Construct {
     public readonly hostedZone: route53.HostedZone;
     public readonly hostedZoneDomainName: string;
+    // TODO NameServerの名前がそとから呼ばれることがなければ、フィールドにはいらん気がする。自動で作ってくれるよね
     public readonly hostedZoneNameServer1?: string;
     public readonly hostedZoneNameServer2?: string;
     public readonly hostedZoneNameServer3?: string;
