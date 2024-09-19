@@ -12,7 +12,7 @@ export class AdminUser extends Construct {
     constructor(scope: Construct, id: string, props: IamUserProps) {
         super(scope, id);
 
-        this.user = new iam.User(this, 'Default', {
+        this.user = new iam.User(this, 'AdminUser', {
             userName: props.userName,
             password: cdk.SecretValue.unsafePlainText(
                 process.env.ADMIN_PASSWORD ?? 'default_password',

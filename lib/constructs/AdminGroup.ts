@@ -7,7 +7,7 @@ export class AdminGroup extends Construct {
     constructor(scope: Construct, id: string) {
         super(scope, id);
 
-        this.group = new iam.Group(this, 'Default', {
+        this.group = new iam.Group(this, 'AdministratorsGroup', {
             groupName: 'AdministratorsCdk',
             managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess')],
         });

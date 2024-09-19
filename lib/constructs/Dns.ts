@@ -23,7 +23,7 @@ export class Dns extends Construct {
 
         const isProd = props.environment === 'prod';
 
-        this.hostedZone = new route53.HostedZone(this, 'Default1', {
+        this.hostedZone = new route53.HostedZone(this, 'DNS', {
             zoneName: isProd ? props.domainName : `${props.environment}.${props.domainName}`,
             comment: `${props.systemName}-${props.domainName}-hostedzone`,
         });
@@ -33,7 +33,7 @@ export class Dns extends Construct {
         this.hostedZoneNameServer3 = this.hostedZone.hostedZoneNameServers?.at(2);
         this.hostedZoneNameServer4 = this.hostedZone.hostedZoneNameServers?.at(3);
         this.recordSetCaa = isProd
-            ? new route53.CaaRecord(this, 'Default2', {
+            ? new route53.CaaRecord(this, 'CaaRecord', {
                   zone: this.hostedZone,
                   recordName: props.domainName,
                   values: [
@@ -48,7 +48,7 @@ export class Dns extends Construct {
             : undefined;
 
         // サブドメインもまとめて証明書をあてておく
-        new acm.Certificate(this, 'Default3', {
+        new acm.Certificate(this, 'Certificate', {
             domainName: props.domainName,
             subjectAlternativeNames: [`*.${props.domainName}`],
             validation: acm.CertificateValidation.fromDns(this.hostedZone),
